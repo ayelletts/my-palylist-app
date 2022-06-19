@@ -1,7 +1,7 @@
 import Search from "./SearchInput";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../Contexts/UserContext";
+import UserContext from "../Contexts/UserContext";
 
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
