@@ -6,7 +6,7 @@ export default function Songs(props) {
     <ul>
       <li>
         {songs.map((song) => (
-          <Song key={song.video_id} {...song} />
+          <Song key={song.id} {...song} />
         ))}
       </li>
     </ul>

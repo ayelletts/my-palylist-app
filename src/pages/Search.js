@@ -8,22 +8,24 @@ export default function Search() {
   const [resultClips, setResultClips] = useState([]);
 
   useEffect(() => {
+    if (!searchText) return;
+    //alert("in use effect");
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "VdLyyNxGgwAE5XTPyE5rMtHhilcZnvvy",
-        "X-RapidAPI-Host": "youtube-search6.p.rapidapi.com",
+        "X-RapidAPI-Key": "8b473cc555msh32d4a424a6edbb5p1f18f8jsnbf112e1f234a",
+        "X-RapidAPI-Host": "simple-youtube-search.p.rapidapi.com",
       },
     };
 
     fetch(
-      "https://youtube-search6.p.rapidapi.com/search/?query=" + searchText,
+      "https://simple-youtube-search.p.rapidapi.com/search?query=" + searchText,
       options
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response.videos);
-        setResultClips(response.videos);
+        console.log(response.results);
+        setResultClips(response.results);
       })
       .catch((err) => console.error(err));
   }, [searchText]);
