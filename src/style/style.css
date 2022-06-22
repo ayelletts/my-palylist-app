@@ -1,0 +1,47 @@
+.song-comp{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.song-img{
+    width:500px;
+    width:350px;
+}
+
+.btn-pannel{
+    display: inline-block;
+}
+
+button{
+    margin-right: 8px;
+}
+
+ul{
+    list-style: none;
+    width: 85%;
+}
+
+li{
+    float:left;
+    margin-right: 10px;
+}
+
+.song-details{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.search-layout{
+    display:flex;
+    justify-content: space-between;
+}
+
+#songsDiv{
+    float: left;
+}
+
+#songPlayer{
+    float: right;
+}

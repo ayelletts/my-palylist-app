@@ -4,11 +4,11 @@ export default function Songs(props) {
   const { songs } = props;
   return (
     <ul>
-      <li>
-        {songs.map((song) => (
+      {songs.map((song) => (
+        <li>
           <Song key={song.id} {...song} />
-        ))}
-      </li>
+        </li>
+      ))}
     </ul>
   );
 }

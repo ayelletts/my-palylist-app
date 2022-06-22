@@ -1,11 +1,13 @@
 import SearchInput from "../components/SearchInput";
 import Songs from "../components/Songs";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
+import VideoPathContext from "../Contexts/VideoPathContext";
 
 export default function Search() {
   const [searchText, setSearchText] = useState("");
   const [resultClips, setResultClips] = useState([]);
+  const [videoFilePath, setVideoFilePath] = useState(null);
 
   useEffect(() => {
     if (!searchText) return;
@@ -33,7 +35,22 @@ export default function Search() {
   return (
     <>
       <SearchInput searchState={setSearchText} />
-      <Songs songs={resultClips} />
+      <div className="search-layout">
+        <div id="songsDiv">
+          <VideoPathContext.Provider value={[videoFilePath, setVideoFilePath]}>
+            <Songs songs={resultClips} />
+          </VideoPathContext.Provider>
+        </div>
+        <div id="songPlayer">
+          <ReactPlayer
+            url={videoFilePath}
+            width="500px"
+            height="350px"
+            controls={true}
+            float="right"
+          />
+        </div>
+      </div>
     </>
   );
 }

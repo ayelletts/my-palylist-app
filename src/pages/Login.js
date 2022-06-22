@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import UserContext from "../Contexts/UserContext";
 
 export default function Login() {
