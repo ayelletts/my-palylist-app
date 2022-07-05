@@ -1,21 +1,34 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import UserContext from "./Contexts/UserContext";
 import Layout from "./components/Layout";
+import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState({
-    username: "testUser",
-    userid: "1",
-    playlists: ["1,2,3", "11,22,33", "211,311,411"],
-    token: "123456",
-  });
+  const [user, setUser] = useState();
+  useEffect(() => {
+    // get token from local storage
+    let token = localStorage.getItem("token");
+    if (token) {
+      // get user by token
+      axios
+        .get("http://localhost:3000/users/", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          console.log(token);
+          setUser(res.data);
+        });
+    }
+  }, []);
 
   return (
     <>
       <UserContext.Provider value={[user, setUser]}>
-        <Header />
+        {/* <Header /> */}
         <Layout />
       </UserContext.Provider>
     </>

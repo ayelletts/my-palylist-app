@@ -5,6 +5,7 @@ import NotFound from "../pages/NotFound";
 import { Route, Routes } from "react-router-dom";
 
 export default function Layout() {
+  // check if user exist and route accoding to result
   return (
     <Routes>
       <Route path="/" element={<Login />} />

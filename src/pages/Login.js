@@ -14,15 +14,25 @@ export default function Login() {
     }
   };
 
+  const login = async () => {
+    axios
+      .post("http://localhost:3000/login/", {
+        email: "email",
+        password: "password",
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data);
+      });
+  };
   // useEffect(() => {
   //   console.log(user);
   // }, [user]);
 
   return (
     <form onSubmit={onSubmit}>
-      <input id="userName" placeholder="Enter user name" />
-      {/* <input type="password" placeholder="Enter password" /> */}
-      <button>Login</button>
+      <input id="email" placeholder="Enter email" />
+      <input type="password" placeholder="Enter password" />
+      <button onClick={login}>Login</button>
     </form>
   );
 }
