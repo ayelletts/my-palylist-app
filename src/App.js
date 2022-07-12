@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import UserContext from "./Contexts/UserContext";
 import Layout from "./components/Layout";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [user, setUser] = useState();

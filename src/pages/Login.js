@@ -1,38 +1,88 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import UserContext from "../Contexts/UserContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [user, setUser] = useContext(UserContext);
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const [showMessage, setShowMessage] = useState(false);
+  let navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
     //update user context
     //validate user - מול הקונטקסט
     //goto playlists page
-    if (user.username === e.target.elements.userName.value) {
-      console.log("approved");
-    }
+    // if (user.username === e.target.elements.userName.value) {
+    //   console.log("approved");
+    // }
+  };
+
+  const signup = (e) => {
+    navigate("/users/signup");
   };
 
   const login = async () => {
     axios
-      .post("http://localhost:3000/login/", {
-        email: "email",
-        password: "password",
+      .post("http://localhost:3000/users/login/", {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
       })
       .then((res) => {
         localStorage.setItem("token", res.data);
+      })
+      .catch((err) => {
+        switch (err.response.status) {
+          case 404:
+            setShowMessage(true);
+            break;
+        }
       });
   };
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
 
   return (
-    <form onSubmit={onSubmit}>
-      <input id="email" placeholder="Enter email" />
-      <input type="password" placeholder="Enter password" />
-      <button onClick={login}>Login</button>
-    </form>
+    <div className="Auth-form-container" onSubmit={onSubmit}>
+      <form className="Auth-form">
+        <div className="Auth-form-content">
+          <h3 className="Auth-form-title">Sign In</h3>
+          <div className="form-group mt-3">
+            <label>Email address</label>
+            <input
+              ref={emailRef}
+              type="email"
+              className="form-control mt-1"
+              placeholder="Enter email"
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label>Password</label>
+            <input
+              ref={passwordRef}
+              type="password"
+              className="form-control mt-1"
+              placeholder="Enter password"
+            />
+          </div>
+          <div className="d-grid gap-2 mt-3">
+            <button type="submit" className="btn btn-primary" onClick={login}>
+              Submit
+            </button>
+          </div>
+          {showMessage && (
+            <div className="text-danger">
+              User not found try again or signup
+            </div>
+          )}
+          <p className="forgot-password text-right mt-2">
+            New user?{" "}
+            <a href="#" onClick={signup}>
+              Signup
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
