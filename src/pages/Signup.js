@@ -1,10 +1,14 @@
 import { useContext, useRef, useState } from "react";
 import UserContext from "../Contexts/UserContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [user, setUser] = useContext(UserContext);
   const [formData, setFormData] = useState({});
+  let navigate = useNavigate();
+  const [showMessage, setShowMessage] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -17,9 +21,25 @@ export default function Signup() {
   };
 
   const signup = async () => {
-    axios.post("http://localhost:3000/users/signup/", formData).then((res) => {
-      //מה חוזר אחרי רישום? localStorage.setItem("token", res.data);
-    });
+    formData.address = {
+      street: formData.street,
+      homeNum: formData.homeNumber,
+      city: formData.city,
+    };
+    // delete formData["street"];
+    // delete formData["homeNumber"];
+    // delete formData["city"];
+    axios
+      .post("http://localhost:3000/users/signup/", formData)
+      .then((res) => {
+        localStorage.setItem("token", res.data);
+        setUser({ email: formData.email, password: formData.password });
+        navigate("/myList");
+      })
+      .catch((err) => {
+        setShowMessage(true);
+        setErrMsg(err.response.data);
+      });
   };
 
   const onChange = (e) => {
@@ -86,11 +106,29 @@ export default function Signup() {
             />
           </div>
           <div className="form-group mt-3">
-            <label>Address</label>
+            <label>Street</label>
             <input
-              name="address"
+              name="street"
               className="form-control mt-1"
-              placeholder="Enter address"
+              placeholder="Enter street"
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label>Home Number</label>
+            <input
+              name="homeNumber"
+              className="form-control mt-1"
+              placeholder="Enter home number"
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label>City</label>
+            <input
+              name="city"
+              className="form-control mt-1"
+              placeholder="Enter city"
               onChange={onChange}
             />
           </div>
@@ -99,6 +137,7 @@ export default function Signup() {
               Submit
             </button>
           </div>
+          {showMessage && <div className="text-danger">{errMsg}</div>}
         </div>
       </form>
     </div>

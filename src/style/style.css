@@ -45,3 +45,16 @@ li{
 #songPlayer{
     float: right;
 }
+
+.popup{
+    position:fixed;
+    left:0px;
+    top:0px;
+    z-index: 2;
+
+}
+
+.popupImage{
+    object-fit: cover;
+    z-index: 3;
+}

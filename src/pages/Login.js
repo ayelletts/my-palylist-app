@@ -8,6 +8,7 @@ export default function Login() {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const [showMessage, setShowMessage] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   let navigate = useNavigate();
 
   const onSubmit = (e) => {
@@ -32,13 +33,17 @@ export default function Login() {
       })
       .then((res) => {
         localStorage.setItem("token", res.data);
+        setShowMessage(false);
+        // navigate("/myList");
+        setUser({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        });
+        navigate("/search");
       })
       .catch((err) => {
-        switch (err.response.status) {
-          case 404:
-            setShowMessage(true);
-            break;
-        }
+        setErrMsg(err.response.data);
+        setShowMessage(true);
       });
   };
 
@@ -70,11 +75,7 @@ export default function Login() {
               Submit
             </button>
           </div>
-          {showMessage && (
-            <div className="text-danger">
-              User not found try again or signup
-            </div>
-          )}
+          {showMessage && <div className="text-danger">{errMsg}</div>}
           <p className="forgot-password text-right mt-2">
             New user?{" "}
             <a href="#" onClick={signup}>

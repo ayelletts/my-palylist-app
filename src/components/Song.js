@@ -4,13 +4,12 @@ import "../style/style.css";
 
 export default function Song(props) {
   const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
-
   const playSong = () => {
     setVideoFilePath(props.url);
   };
 
-  const addSongToPlaylist = (song) => {
-    alert("add song to playlist: " + song);
+  const addSongToPlaylist = () => {
+    alert("add song to playlist: " + props.id);
   };
 
   return (
@@ -22,10 +21,7 @@ export default function Song(props) {
           <button id="playSong" onClick={() => playSong()}>
             Play Me
           </button>
-          <button
-            id="addSongToPlaylist"
-            onClick={() => addSongToPlaylist(this)}
-          >
+          <button id="addSongToPlaylist" onClick={() => addSongToPlaylist()}>
             Add To Playlist
           </button>
         </div>
