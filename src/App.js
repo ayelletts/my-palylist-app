@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import "./App.css";
 
 function App() {
   const [user, setUser] = useState();
