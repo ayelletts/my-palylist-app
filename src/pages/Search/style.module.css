@@ -1,0 +1,29 @@
+.songPlayer{
+  float: right;
+  border: 5px solid rgba(205, 205, 219, 0.404);
+  border-radius: 15px;
+  padding: 8px;
+  margin-left: 5px;
+  height: 50%;
+    color: #cdc8c2;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.songsDiv{
+    float: left;
+    border: 5px solid rgba(205, 205, 219, 0.404);
+    border-radius: 15px;
+    padding: 8px;
+    height: 50%;
+      color: #cdc8c2;
+      font-family: sans-serif;
+      font-size: 18px;
+}
+
+.searchLayout{
+    display:flex;
+    justify-content: space-between;
+}
+
+    

@@ -1,60 +1,38 @@
-.song-comp{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+body{
+    background-color: lightslategray;
+    color: aliceblue;
 }
 
-.song-img{
-    width:500px;
-    width:350px;
-}
-
-.btn-pannel{
+.input {
+    background-color: white;
+    border: 2px solid black;
+    color: rgba(35, 12, 161, 0.925);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
     display: inline-block;
-}
+    margin: 4px 2px;
+    border-radius: 120px;
+  }
 
-button{
-    margin-right: 8px;
-}
+.button {
+    background-color: lightgrey;
+    border: 2px solid black;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 120px;
+  }
+  
+  .button:hover {
+    background-color: #f1f1f1;
+  }
 
-ul{
-    list-style: none;
-    width: 85%;
-}
-
-li{
-    float:left;
-    margin-right: 10px;
-}
-
-.song-details{
+.container {
     display: flex;
     flex-direction: column;
-    width: 350px;
-}
-
-.search-layout{
-    display:flex;
-    justify-content: space-between;
-}
-
-#songsDiv{
-    float: left;
-}
-
-#songPlayer{
-    float: right;
-}
-
-.popup{
-    position:fixed;
-    left:0px;
-    top:0px;
-    z-index: 2;
-
-}
-
-.popupImage{
-    object-fit: cover;
-    z-index: 3;
 }

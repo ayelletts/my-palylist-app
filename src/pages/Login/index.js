@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import UserContext from "../Contexts/UserContext";
+import UserContext from "../../Contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -32,13 +32,11 @@ export default function Login() {
         password: passwordRef.current.value,
       })
       .then((res) => {
-        localStorage.setItem("token", res.data);
+        localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("user", JSON.stringify(res.data.user));
         setShowMessage(false);
         // navigate("/myList");
-        setUser({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        });
+        setUser(res.data.user);
         navigate("/search");
       })
       .catch((err) => {

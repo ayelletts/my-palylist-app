@@ -1,0 +1,13 @@
+ul{
+    display: flex !important;
+    list-style: none !important;
+    flex-wrap: wrap !important;
+padding-left: 1rem !important;
+width:auto !important;
+      }
+      
+      li{
+        float:left !important;
+        margin-right: 10px !important;
+      }
+      

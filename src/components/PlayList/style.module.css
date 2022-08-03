@@ -1,0 +1,17 @@
+h5{
+    cursor: pointer;
+    color:black;
+}
+
+.plImg{
+    width:60px;
+    width:35px;
+}
+
+
+.liDiv{
+    width: 150px;
+  display: flex;
+  justify-content: space-between;
+  margin: 2px;
+  }

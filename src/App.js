@@ -1,14 +1,15 @@
-import "./App.css";
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import UserContext from "./Contexts/UserContext";
 import Layout from "./components/Layout";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
 
   useEffect(() => {
     // debugger;
@@ -24,13 +25,15 @@ function App() {
           },
         })
         .then((res) => {
-          console.log(token);
+          // console.log(token);
           setUser(res.data);
           setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          navigate("/");
+          setLoading(false);
         });
-      // .catch((err) => {
-      //   console.log(err.response.message);
-      // });
     } else {
       setLoading(false);
     }
@@ -43,7 +46,7 @@ function App() {
         "Loading..."
       ) : (
         <UserContext.Provider value={[user, setUser]}>
-          {/* <Header /> */}
+          <Header />
           <Layout />
         </UserContext.Provider>
       )}{" "}
