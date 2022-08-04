@@ -33,6 +33,7 @@ export default function PlayList(props) {
         setUser(res.data);
         setPopup("");
       });
+      setCurrentSong("");
     } // come from home page
     else {
       setSelectedPlaylist(props);

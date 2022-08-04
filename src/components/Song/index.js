@@ -68,24 +68,26 @@ export default function Song(props) {
       {/* <div className={styles.songDetails}> */}
       <span className={styles.songName}>{props.title}</span>
       <div className={styles.btnPannel}>
-        <div className={styles.tooltip}>
-          <img
-            src={songIsPlaying ? stopButton : playButton}
-            className={styles.icon}
-            onClick={() => playSong()}
-          />
-          <div className={styles.tooltipContent}>Play song</div>
-        </div>
         {!props.delete ? (
-          <div className={styles.tooltip}>
-            <img
-              src={addToPlayList}
-              className={styles.icon}
-              onClick={addSongToPlaylist}
-              alt="Add to Playlist"
-            />
-            <div className={styles.tooltipContent}>Add to playlist</div>
-          </div>
+          <>
+            <div className={styles.tooltip}>
+              <img
+                src={songIsPlaying ? stopButton : playButton}
+                className={styles.icon}
+                onClick={() => playSong()}
+              />
+              <div className={styles.tooltipContent}>Play song</div>
+            </div>
+            <div className={styles.tooltip}>
+              <img
+                src={addToPlayList}
+                className={styles.icon}
+                onClick={addSongToPlaylist}
+                alt="Add to Playlist"
+              />
+              <div className={styles.tooltipContent}>Add to playlist</div>
+            </div>
+          </>
         ) : (
           <div className={styles.tooltip}>
             <img
