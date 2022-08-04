@@ -5,10 +5,10 @@ import PlayList from "../../components/PlayList";
 import NewPlaylist from "../NewPlayList";
 import "../../style/style.css";
 
-export default function PlayLists() {
+export default function PlayLists(props) {
   //use popupcontext and fill with user's lists
-  const [popup, setPopup] = useContext(PopupContext);
   const [user, setUser] = useContext(UserContext);
+  const [popup, setPopup] = useContext(PopupContext);
 
   const newPlayList = (e) => {
     setPopup(<NewPlaylist email={user.email} />);
@@ -16,9 +16,11 @@ export default function PlayLists() {
 
   return (
     <div className="container">
-      <button onClick={newPlayList} className="button">
-        New Playlist
-      </button>
+      {props.showNewButton && (
+        <button onClick={newPlayList} className="button">
+          New Playlist
+        </button>
+      )}
       {user && user.playlists && user.playlists.length > 0 ? (
         <ul>
           {user.playlists.map((playlist) => (

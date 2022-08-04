@@ -1,10 +1,10 @@
 import Search from "../../pages/Search";
 import Login from "../../pages/Login";
-import PlayList from "../../pages/PlayLists";
 import { Route, Routes } from "react-router-dom";
 import Signup from "../../pages/Signup";
 import { useContext } from "react";
 import UserContext from "../../Contexts/UserContext";
+import Home from "../../pages/Home";
 
 export default function Layout() {
   const [user, setUser] = useContext(UserContext);
@@ -15,7 +15,7 @@ export default function Layout() {
       {user && (
         <>
           <Route path="/search" element={<Search />} />
-          <Route path="/myList" element={<PlayList />} />
+          <Route path="/myList" element={<Home />} />
         </>
       )}
       <Route path="*" element={<Login />} />

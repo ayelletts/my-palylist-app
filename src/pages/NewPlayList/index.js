@@ -6,6 +6,7 @@ import UserContext from "../../Contexts/UserContext";
 import "../../style/style.css";
 
 export default function NewPlaylist(props) {
+  debugger;
   const currentSong = useContext(SongContext);
   const playlistNameRef = useRef("");
   const [popup, setPopup] = useContext(PopupContext);

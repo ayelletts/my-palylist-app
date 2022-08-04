@@ -1,11 +1,14 @@
-h5{
+.unselectedList{
     cursor: pointer;
-    color:black;
+    color:rgba(90, 99, 223, 0.664);
 }
-
+.selectedList{
+    cursor: pointer;
+    color:rgba(242, 244, 247, 0.925);
+}
 .plImg{
     width:60px;
-    width:35px;
+    height: 35px;
 }
 
 
@@ -15,3 +18,5 @@ h5{
   justify-content: space-between;
   margin: 2px;
   }
+
+  

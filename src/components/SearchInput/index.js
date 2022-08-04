@@ -11,7 +11,11 @@ export default function SearchInput(props) {
 
   return (
     <div className={styles.searchDiv}>
-      <input ref={refSearch} placeholder="Enter song name" className="input" />
+      <input
+        ref={refSearch}
+        placeholder="Enter song/artist name"
+        className="input"
+      />
       <button className="button" onClick={btnSearchClick}>
         Search
       </button>

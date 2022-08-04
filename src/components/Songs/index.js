@@ -8,11 +8,7 @@ export default function Songs(props) {
     <ul>
       {songs.map((song) => (
         <li>
-          <Song
-            key={song.songId}
-            {...song}
-            showImgAndBtns={props.showImgAndBtns}
-          />
+          <Song key={song.songId} {...song} delete={props.delete} />
         </li>
       ))}
     </ul>

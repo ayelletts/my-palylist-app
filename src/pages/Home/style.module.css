@@ -1,0 +1,60 @@
+header {
+    width: 960px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.playlist{
+    width: 200px;
+   text-align: right;
+   color: azure;
+} 
+
+h3{
+    text-align: -webkit-center;
+    font-style: oblique;
+    color: rgba(202, 238, 245, 0.945);
+}
+
+body{
+  background-image: url('../../assets/images/20536933.jpg');
+  background-repeat:no-repeat;
+  background-size: cover;
+}
+
+.name{
+    color: rgba(202, 238, 245, 0.945);
+    font-style: oblique;
+}
+
+.playlistsDiv{
+    display: flex;
+    flex-direction: column;
+    float: left;
+    border: 5px solid rgba(205, 205, 219, 0.404);
+    border-radius: 15px;
+    padding: 8px;
+    margin: 30px;
+    height: 50%;
+      color: #cdc8c2;
+      font-family: sans-serif;
+      font-size: 18px;
+      background-color: rgb(6, 32, 82);
+}
+
+.centeredContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    align-self: center;
+}
+
+.songsDiv{
+    font-size: 48px;
+    color: aliceblue;
+    font-style: oblique;
+}
+
+.plTitle{
+    margin-left: 20px;
+}

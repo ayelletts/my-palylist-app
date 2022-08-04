@@ -1,10 +1,7 @@
 import Songs from "../../components/Songs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import VideoPathContext from "../../Contexts/VideoPathContext";
-import PopupContext from "../../Contexts/PopupContext";
-import Popup from "../../components/Popup";
-import SongContext from "../../Contexts/SongContext";
 import styles from "./style.module.css";
 import "../../style/style.css";
 import SearchInput from "../../components/SearchInput";
@@ -12,9 +9,8 @@ import SearchInput from "../../components/SearchInput";
 export default function Search() {
   const [searchText, setSearchText] = useState("");
   const [resultClips, setResultClips] = useState([]);
-  const [videoFilePath, setVideoFilePath] = useState(null);
-  const popup = useState("");
-  const currentSong = useState([]);
+  const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
+  let clips = [];
 
   useEffect(() => {
     if (!searchText) return;
@@ -33,7 +29,6 @@ export default function Search() {
     )
       .then((response) => response.json())
       .then((response) => {
-        let clips = [];
         let song = "";
         console.log(response.results);
         for (song of response.results) {
@@ -44,7 +39,7 @@ export default function Search() {
             title: song.title,
           });
         }
-        setResultClips(response.results);
+        setResultClips(clips);
       })
       .catch((err) => console.error(err));
   }, [searchText]);
@@ -55,16 +50,7 @@ export default function Search() {
       <div className={styles.searchLayout}>
         <div id="songsDiv" className={styles.songsDiv}>
           Search results here...
-          <SongContext.Provider value={currentSong}>
-            <PopupContext.Provider value={popup}>
-              <VideoPathContext.Provider
-                value={[videoFilePath, setVideoFilePath]}
-              >
-                <Songs songs={resultClips} showImgAndBtns={true} />
-                <Popup />
-              </VideoPathContext.Provider>
-            </PopupContext.Provider>
-          </SongContext.Provider>
+          <Songs songs={resultClips} />
         </div>
         <div id="songPlayer" className={styles.songPlayer}>
           Play clips here...

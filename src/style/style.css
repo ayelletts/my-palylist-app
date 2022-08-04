@@ -5,7 +5,7 @@ body{
 
 .input {
     background-color: white;
-    border: 2px solid black;
+    border: 2px solid rgb(191, 195, 212);
     color: rgba(35, 12, 161, 0.925);
     padding: 10px 20px;
     text-align: center;
@@ -17,8 +17,8 @@ body{
 
 .button {
     background-color: lightgrey;
-    border: 2px solid black;
-    color: black;
+    border: 2px solid rgb(191, 195, 212);
+    color: rgb(83, 85, 216);
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -26,6 +26,7 @@ body{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 120px;
+    width: 150px;
   }
   
   .button:hover {

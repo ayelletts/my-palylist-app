@@ -35,9 +35,9 @@ export default function Login() {
         localStorage.setItem("token", res.data.token);
         // localStorage.setItem("user", JSON.stringify(res.data.user));
         setShowMessage(false);
-        // navigate("/myList");
         setUser(res.data.user);
-        navigate("/search");
+        navigate("/myList");
+        //navigate("/search");
       })
       .catch((err) => {
         setErrMsg(err.response.data);

@@ -4,6 +4,7 @@ ul{
     flex-wrap: wrap !important;
 padding-left: 1rem !important;
 width:auto !important;
+flex-direction: column !important;
       }
       
       li{

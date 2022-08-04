@@ -6,6 +6,8 @@ import PlayLists from "../../pages/PlayLists";
 import UserContext from "../../Contexts/UserContext";
 import SongContext from "../../Contexts/SongContext";
 import "../../style/style.css";
+import SelectedPlaylistContext from "../../Contexts/SelectedPlaylistContext";
+import axios from "axios";
 
 export default function Song(props) {
   const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
@@ -14,9 +16,12 @@ export default function Song(props) {
   const [popup, setPopup] = useContext(PopupContext);
   const [songIsPlaying, setSongIsPlaying] = useState(false);
   const addToPlayList = require("../../assets/images/addToPlaylist.png");
+  const removeFromPlayList = require("../../assets/images/delete.png");
   const playButton = require("../../assets/images/playButton.png");
   const stopButton = require("../../assets/images/stopButton.png");
-
+  const [selectedPlaylist, setSelectedPlaylist] = useContext(
+    SelectedPlaylistContext
+  );
   const playSong = () => {
     setSongIsPlaying(!songIsPlaying);
     if (songIsPlaying) setVideoFilePath("");
@@ -25,39 +30,74 @@ export default function Song(props) {
 
   const addSongToPlaylist = () => {
     setCurrentSong({
-      songId: props.id,
-      videoUrl: props.url,
-      imgUrl: props.thumbnail.url,
+      songId: props.songId,
+      videoUrl: props.videoUrl,
+      imgUrl: props.imgUrl,
       title: props.title,
     });
     //if (!user.playlists || user.playlists.length === 0) {
 
-    setPopup(<PlayLists />);
+    setPopup(<PlayLists showNewButton={true} />);
     //}
+  };
+
+  const removeSongFromPlaylist = async (e) => {
+    const config = {
+      method: "delete",
+      url: "http://localhost:3000/playlist/deleteSong/",
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      data: {
+        userId: selectedPlaylist.userId,
+        playlistId: selectedPlaylist._id,
+        songId: props._id,
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        setUser(res.data.user);
+        setSelectedPlaylist(res.data.selectedPlaylist[0]);
+      })
+      .catch((err) => {});
   };
 
   return (
     <div className={styles.songDetails}>
-      {props.showImgAndBtns && (
-        <img src={props.thumbnail.url} className={styles.songImg} />
-      )}
+      <img src={props.imgUrl} className={styles.songImg} />
       {/* <div className={styles.songDetails}> */}
-      <span>{props.title}</span>
-      {props.showImgAndBtns && (
-        <div className={styles.btnPannel}>
+      <span className={styles.songName}>{props.title}</span>
+      <div className={styles.btnPannel}>
+        <div className={styles.tooltip}>
           <img
             src={songIsPlaying ? stopButton : playButton}
             className={styles.icon}
             onClick={() => playSong()}
           />
-          <img
-            src={addToPlayList}
-            className={styles.icon}
-            onClick={() => addSongToPlaylist()}
-            alt="Add to Playlist"
-          />
+          <div className={styles.tooltipContent}>Play song</div>
         </div>
-      )}
+        {!props.delete ? (
+          <div className={styles.tooltip}>
+            <img
+              src={addToPlayList}
+              className={styles.icon}
+              onClick={addSongToPlaylist}
+              alt="Add to Playlist"
+            />
+            <div className={styles.tooltipContent}>Add to playlist</div>
+          </div>
+        ) : (
+          <div className={styles.tooltip}>
+            <img
+              src={removeFromPlayList}
+              className={styles.icon}
+              onClick={removeSongFromPlaylist}
+              alt="Add to Playlist"
+            />
+            <div className={styles.tooltipContent}>Remove from playlist</div>
+          </div>
+        )}
+      </div>
       {/* </div> */}
     </div>
   );
