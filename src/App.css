@@ -3,14 +3,6 @@
   background-color: #f2f2f700;
 } */
 
-.App {
-  background:
-      linear-gradient(rgba(17, 17, 17, 0.822), transparent),
-      linear-gradient(to top left, rgba(17, 150, 17, 0.753), transparent),
-      linear-gradient(to top right, rgba(41, 41, 204, 0.856), transparent);
-  background-blend-mode: screen;
-}
-
 .Auth-form-container {
   display: flex;
   justify-content: center;

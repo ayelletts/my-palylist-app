@@ -5,6 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+    /* background-image: url('./assets/images/20536933.jpg') !important;
+    background-repeat:no-repeat !important;
+    background-size: cover !important; */
+  
+      background:
+          linear-gradient(rgba(17, 17, 17, 0.822), transparent),
+          linear-gradient(to top left, rgba(17, 150, 17, 0.753), transparent),
+          linear-gradient(to top right, rgba(41, 41, 204, 0.856), transparent) !important;
+      background-blend-mode: screen !important;
 }
 
 code {
@@ -12,7 +22,7 @@ code {
     monospace;
 }
 
-.overlay {
+/* .overlay {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -33,4 +43,4 @@ code {
   background-color: white;
   padding: 10px;
   border-radius: 10px;
-}
+} */

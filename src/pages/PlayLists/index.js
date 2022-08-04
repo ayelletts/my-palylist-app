@@ -4,6 +4,7 @@ import UserContext from "../../Contexts/UserContext";
 import PlayList from "../../components/PlayList";
 import NewPlaylist from "../NewPlayList";
 import "../../style/style.css";
+import styles from "./style.module.css";
 
 export default function PlayLists(props) {
   //use popupcontext and fill with user's lists
@@ -15,7 +16,7 @@ export default function PlayLists(props) {
   };
 
   return (
-    <div className="container">
+    <div className={styles.plDiv}>
       {props.showNewButton && (
         <button onClick={newPlayList} className="button">
           New Playlist

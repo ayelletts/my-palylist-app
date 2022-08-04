@@ -1,7 +1,7 @@
-body{
+/* body{
     background-color: lightslategray;
     color: aliceblue;
-}
+} */
 
 .input {
     background-color: white;
@@ -16,9 +16,11 @@ body{
   }
 
 .button {
-    background-color: lightgrey;
+    /* background-color: #00d4b7; */
+    background: rgb(0,239,147);
+background: linear-gradient(90deg, rgba(0,239,147,1) 24%, rgba(0,212,183,1) 42%, rgba(0,212,255,1) 75%);
     border: 2px solid rgb(191, 195, 212);
-    color: rgb(83, 85, 216);
+    color: white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;

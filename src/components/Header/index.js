@@ -4,9 +4,10 @@ import UserContext from "../../Contexts/UserContext";
 import { useContext } from "react";
 import userIcon from "../../assets/images/user.png";
 import searchIcon from "../../assets/images/search.png";
+import exitIcon from "../../assets/images/exit.png";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header(props) {
   const user = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -15,7 +16,10 @@ export default function Header() {
       <h1>My Spotify App</h1>
       <img className={styles.imgHeader} src={appIcon}></img>
       <div className={styles.nav}>
-        <span className={styles.name}> Hello, {user[0].name}</span>
+        <span className={styles.name}>
+          {" "}
+          Hello, {user[0] ? user[0].name : "Guest"}
+        </span>
         <div className={styles.tooltip}>
           <img
             src={searchIcon}
@@ -31,6 +35,20 @@ export default function Header() {
             onClick={() => navigate("/myList")}
           />
           <div className={styles.tooltipContent}>My home page</div>
+        </div>
+        <div className={styles.tooltip}>
+          <img
+            src={exitIcon}
+            className={styles.icon}
+            onClick={() => {
+              localStorage.setItem("token", "");
+              {
+                user[1](null);
+              }
+              navigate("/login");
+            }}
+          />
+          <div className={styles.tooltipContent}>Signout</div>
         </div>
       </div>
     </div>

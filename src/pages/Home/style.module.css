@@ -16,12 +16,6 @@ h3{
     color: rgba(202, 238, 245, 0.945);
 }
 
-body{
-  background-image: url('../../assets/images/20536933.jpg');
-  background-repeat:no-repeat;
-  background-size: cover;
-}
-
 .name{
     color: rgba(202, 238, 245, 0.945);
     font-style: oblique;

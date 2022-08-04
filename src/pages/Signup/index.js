@@ -32,8 +32,8 @@ export default function Signup() {
     axios
       .post("http://localhost:3000/users/signup/", formData)
       .then((res) => {
-        localStorage.setItem("token", res.data);
-        setUser({ email: formData.email, password: formData.password });
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
         navigate("/myList");
       })
       .catch((err) => {

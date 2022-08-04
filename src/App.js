@@ -50,7 +50,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       {" "}
       {loading ? (
         "Loading..."
@@ -60,7 +60,7 @@ function App() {
             <SelectedPlaylistContext.Provider value={selectedPlaylist}>
               <SongContext.Provider value={currentSong}>
                 <PopupContext.Provider value={popup}>
-                  {user && <Header />}
+                  <Header signedIn={user ? true : false} />
                   <Layout />
                   <Popup />
                 </PopupContext.Provider>

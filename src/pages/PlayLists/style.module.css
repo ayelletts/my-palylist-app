@@ -1,5 +1,5 @@
 
-    li{
+    /* li{
       float:left !important;
       margin-right: 10px !important;
     }
@@ -12,4 +12,10 @@
   padding-left: 1rem !important;
   width:auto !important;
         }
-        
+         */
+
+.plDiv{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}

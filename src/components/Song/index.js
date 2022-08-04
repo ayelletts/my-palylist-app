@@ -25,7 +25,7 @@ export default function Song(props) {
   const playSong = () => {
     setSongIsPlaying(!songIsPlaying);
     if (songIsPlaying) setVideoFilePath("");
-    else setVideoFilePath(props.url);
+    else setVideoFilePath(props.videoUrl);
   };
 
   const addSongToPlaylist = () => {
