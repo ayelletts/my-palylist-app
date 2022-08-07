@@ -28,7 +28,7 @@ h3{
     border: 1px solid rgba(205, 205, 219, 0.404);
     border-radius: 15px;
     padding: 8px;
-    margin: 79px;
+    margin: 30px;
     height: 50%;
     color: #cdc8c2;
     font-family: sans-serif;
@@ -51,4 +51,10 @@ h3{
 
 .plTitle{
     margin-left: 20px;
+}
+
+.playlistsAndSongs{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }

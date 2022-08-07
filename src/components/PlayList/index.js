@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./style.module.css";
 import axios from "axios";
 import SongContext from "../../Contexts/SongContext";
@@ -13,6 +13,17 @@ export default function PlayList(props) {
   );
   const [popup, setPopup] = useContext(PopupContext);
   const [user, setUser] = useContext(UserContext);
+  const [isClassSelected, setIsClassSelected] = useState(false);
+
+  useEffect(() => {
+    if (selectedPlaylist && props) {
+      if (selectedPlaylist._id === props._id) {
+        setIsClassSelected(true);
+      } else {
+        setIsClassSelected(false);
+      }
+    }
+  }, [selectedPlaylist]);
 
   const selectList = async (e) => {
     if (currentSong != "") {
@@ -45,9 +56,7 @@ export default function PlayList(props) {
       <h5
         onClick={selectList}
         className={
-          selectedPlaylist._id === props._id
-            ? styles.selectedList
-            : styles.unselectedList
+          isClassSelected ? styles.selectedList : styles.unselectedList
         }
       >
         {props.title}

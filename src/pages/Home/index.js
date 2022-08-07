@@ -18,7 +18,7 @@ export default function Home() {
   }, [selectedPlaylist, user]);
 
   return (
-    <div>
+    <div className={styles.playlistsAndSongs}>
       <div className={styles.playlistsDiv}>
         <h3>Your PlayLists</h3>
         <PlayLists />
