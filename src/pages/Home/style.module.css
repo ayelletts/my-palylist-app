@@ -28,8 +28,11 @@ h3{
     border: 1px solid rgba(205, 205, 219, 0.404);
     border-radius: 15px;
     padding: 8px;
-    margin: 30px;
-    height: 50%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    overflow:scroll;
+    overflow-x: hidden;
+    height: 40vh;
     color: #cdc8c2;
     font-family: sans-serif;
     font-size: 18px;
@@ -47,6 +50,9 @@ h3{
     font-size: 48px;
     color: aliceblue;
     font-style: oblique;
+    overflow:scroll;
+    overflow-x: hidden;
+    height: 90vh;
 }
 
 .plTitle{
@@ -55,6 +61,23 @@ h3{
 
 .playlistsAndSongs{
     display: flex;
-    justify-content: center;
     align-items: flex-start;
+    justify-content: space-evenly;
 }
+
+.songPlayer{
+    float: right;
+    border: 1px solid rgba(205, 205, 219, 0.404);
+    border-radius: 15px;
+    padding: 8px;
+    margin-left: 5px;
+    height: 48vh;
+      color: #cdc8c2;
+      font-family: sans-serif;
+      font-size: 18px;
+  }
+  .homePlayer{
+    display: flex;
+    flex-direction: column;
+}
+  

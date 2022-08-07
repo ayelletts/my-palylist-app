@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../Contexts/UserContext";
 import Songs from "../../components/Songs";
 import SelectedPlaylistContext from "../../Contexts/SelectedPlaylistContext";
+import VideoPathContext from "../../Contexts/VideoPathContext";
+import ReactPlayer from "react-player";
 
 export default function Home() {
   const [user, setUser] = useContext(UserContext);
@@ -12,6 +14,7 @@ export default function Home() {
   const [selectedPlaylist, setSelectedPlaylist] = useContext(
     SelectedPlaylistContext
   );
+  const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
 
   useEffect(() => {
     selectedPlaylist ? setShowSongs(true) : setShowSongs(false);
@@ -19,10 +22,22 @@ export default function Home() {
 
   return (
     <div className={styles.playlistsAndSongs}>
-      <div className={styles.playlistsDiv}>
-        <h3>Your PlayLists</h3>
-        <PlayLists />
-        {/* <Nav /> */}
+      <div className={styles.homePlayer}>
+        <div className={styles.playlistsDiv}>
+          <h3>Your PlayLists</h3>
+          <PlayLists />
+          {/* <Nav /> */}
+        </div>
+        <div id="songPlayer" className={styles.songPlayer}>
+          Play clips here...
+          <ReactPlayer
+            url={videoFilePath}
+            width="55vh"
+            height="40vh"
+            controls={true}
+            float="right"
+          />
+        </div>
       </div>
       {showSongs && (
         <div className={styles.songsDiv}>

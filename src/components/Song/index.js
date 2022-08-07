@@ -91,15 +91,25 @@ export default function Song(props) {
             </div>
           </>
         ) : (
-          <div className={styles.tooltip}>
-            <img
-              src={removeFromPlayList}
-              className={styles.icon}
-              onClick={removeSongFromPlaylist}
-              alt="Add to Playlist"
-            />
-            <div className={styles.tooltipContent}>Remove from playlist</div>
-          </div>
+          <>
+            <div className={styles.tooltip}>
+              <img
+                src={songIsPlaying ? stopButton : playButton}
+                className={styles.icon}
+                onClick={() => playSong()}
+              />
+              <div className={styles.tooltipContent}>Play song</div>
+            </div>
+            <div className={styles.tooltip}>
+              <img
+                src={removeFromPlayList}
+                className={styles.icon}
+                onClick={removeSongFromPlaylist}
+                alt="Add to Playlist"
+              />
+              <div className={styles.tooltipContent}>Remove from playlist</div>
+            </div>
+          </>
         )}
       </div>
       {/* </div> */}
