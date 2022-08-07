@@ -2,7 +2,8 @@ import { useContext, useRef, useState } from "react";
 import UserContext from "../../Contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+//const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
 export default function Login() {
   const [user, setUser] = useContext(UserContext);
   const emailRef = useRef("");
@@ -27,7 +28,7 @@ export default function Login() {
 
   const login = async () => {
     axios
-      .post("http://localhost:3000/users/login/", {
+      .post(`${baseUrl}/users/login/`, {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       })

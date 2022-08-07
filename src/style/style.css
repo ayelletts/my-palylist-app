@@ -20,7 +20,7 @@
     background: rgb(0,239,147);
 background: linear-gradient(90deg, rgba(0,239,147,1) 24%, rgba(0,212,183,1) 42%, rgba(0,212,255,1) 75%);
     border: 2px solid rgb(191, 195, 212);
-    color: white;
+    color: white !important;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;

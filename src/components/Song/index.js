@@ -8,6 +8,8 @@ import SongContext from "../../Contexts/SongContext";
 import "../../style/style.css";
 import SelectedPlaylistContext from "../../Contexts/SelectedPlaylistContext";
 import axios from "axios";
+// const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
 
 export default function Song(props) {
   const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
@@ -44,7 +46,7 @@ export default function Song(props) {
   const removeSongFromPlaylist = async (e) => {
     const config = {
       method: "delete",
-      url: "http://localhost:3000/playlist/deleteSong/",
+      url: `${baseUrl}/playlist/deleteSong/`,
       headers: {
         authorization: "Bearer " + localStorage.getItem("token"),
       },

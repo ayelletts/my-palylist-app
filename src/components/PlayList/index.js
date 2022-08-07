@@ -6,6 +6,9 @@ import PopupContext from "../../Contexts/PopupContext";
 import UserContext from "../../Contexts/UserContext";
 import SelectedPlaylistContext from "../../Contexts/SelectedPlaylistContext";
 
+// const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
+
 export default function PlayList(props) {
   const [currentSong, setCurrentSong] = useContext(SongContext);
   const [selectedPlaylist, setSelectedPlaylist] = useContext(
@@ -16,7 +19,7 @@ export default function PlayList(props) {
   const [isClassSelected, setIsClassSelected] = useState(false);
 
   useEffect(() => {
-    if (selectedPlaylist && props) {
+    if (selectedPlaylist && props && currentSong == "") {
       if (selectedPlaylist._id === props._id) {
         setIsClassSelected(true);
       } else {
@@ -30,7 +33,7 @@ export default function PlayList(props) {
       // come from add song to play list
       const config = {
         method: "post",
-        url: "http://localhost:3000/playlist/addToList/",
+        url: `${baseUrl}/playlist/addToList/`,
         headers: {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -45,6 +48,7 @@ export default function PlayList(props) {
         setPopup("");
       });
       setCurrentSong("");
+      setSelectedPlaylist(null);
     } // come from home page
     else {
       setSelectedPlaylist(props);

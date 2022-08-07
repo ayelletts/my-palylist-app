@@ -2,6 +2,8 @@ import { useContext, useRef, useState } from "react";
 import UserContext from "../../Contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
 
 export default function Signup() {
   const [user, setUser] = useContext(UserContext);
@@ -30,7 +32,7 @@ export default function Signup() {
     // delete formData["homeNumber"];
     // delete formData["city"];
     axios
-      .post("http://localhost:3000/users/signup/", formData)
+      .post(`${baseUrl}/users/signup/`, formData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);

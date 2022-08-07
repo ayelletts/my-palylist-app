@@ -4,6 +4,8 @@ import SongContext from "../../Contexts/SongContext";
 import PopupContext from "../../Contexts/PopupContext";
 import UserContext from "../../Contexts/UserContext";
 import "../../style/style.css";
+// const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
+const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
 export default function NewPlaylist(props) {
   debugger;
@@ -15,7 +17,7 @@ export default function NewPlaylist(props) {
   const createPlaylist = async (e) => {
     const config = {
       method: "post",
-      url: "http://localhost:3000/playlist/new/",
+      url: `${baseUrl}/playlist/new/`,
       headers: {
         authorization: "Bearer " + localStorage.getItem("token"),
       },

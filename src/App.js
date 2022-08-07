@@ -11,6 +11,8 @@ import "./App.css";
 import Popup from "./components/Popup";
 import VideoPathContext from "./Contexts/VideoPathContext";
 import SelectedPlaylistContext from "./Contexts/SelectedPlaylistContext";
+// const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
 
 function App() {
   const [user, setUser] = useState();
@@ -29,7 +31,7 @@ function App() {
       setLoading(true);
       // get user by token
       axios
-        .get("http://localhost:3000/users/", {
+        .get(`${baseUrl}/users/`, {
           headers: {
             authorization: "Bearer " + token,
           },
