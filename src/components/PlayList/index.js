@@ -42,7 +42,14 @@ export default function PlayList(props) {
   return (
     <div className={styles.liDiv}>
       <img src={props.imgUrlPl} className={styles.plImg} />
-      <h5 onClick={selectList} className={styles.unselectedList}>
+      <h5
+        onClick={selectList}
+        className={
+          selectedPlaylist._id === props._id
+            ? styles.selectedList
+            : styles.unselectedList
+        }
+      >
         {props.title}
       </h5>
     </div>

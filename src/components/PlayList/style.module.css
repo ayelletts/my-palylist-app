@@ -1,10 +1,10 @@
 .unselectedList{
     cursor: pointer;
-    color:rgba(90, 99, 223, 0.664);
+    color:rgba(90, 99, 223);
 }
 .selectedList{
     cursor: pointer;
-    color:rgba(242, 244, 247, 0.925);
+    color:rgba(242, 244, 247);
 }
 .plImg{
     width:60px;
@@ -16,7 +16,7 @@
     width: 150px;
   display: flex;
   justify-content: space-between;
-  margin: 2px;
+  margin: 10px;
   }
 
   
