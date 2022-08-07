@@ -132,8 +132,8 @@ export default function Signup() {
               onChange={onChange}
             />
           </div>
-          <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary" onClick={signup}>
+          <div className="d-grid gap-2 mt-3 center">
+            <button type="submit" className="btn button" onClick={signup}>
               Submit
             </button>
           </div>

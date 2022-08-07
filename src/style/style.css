@@ -27,7 +27,7 @@ background: linear-gradient(90deg, rgba(0,239,147,1) 24%, rgba(0,212,183,1) 42%,
     display: inline-block;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 120px;
+    border-radius: 120px !important;
     width: 150px;
   }
   
@@ -38,4 +38,8 @@ background: linear-gradient(90deg, rgba(0,239,147,1) 24%, rgba(0,212,183,1) 42%,
 .container {
     display: flex;
     flex-direction: column;
+}
+
+.center{
+  justify-items: center;
 }

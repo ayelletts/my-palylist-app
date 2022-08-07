@@ -68,8 +68,8 @@ export default function Login() {
               placeholder="Enter password"
             />
           </div>
-          <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary" onClick={login}>
+          <div className="d-grid gap-2 mt-3 center">
+            <button type="submit" className="btn button" onClick={login}>
               Submit
             </button>
           </div>
