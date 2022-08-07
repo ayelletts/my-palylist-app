@@ -15,10 +15,24 @@ export default function Home() {
     SelectedPlaylistContext
   );
   const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     selectedPlaylist ? setShowSongs(true) : setShowSongs(false);
   }, [selectedPlaylist, user]);
+
+  const autoPlay = () => {
+    setChecked(!checked);
+    if (!checked) {
+      const arrayOfUrl = [];
+      for (let song of selectedPlaylist.songs) {
+        arrayOfUrl.push(song.videoUrl);
+      }
+      setVideoFilePath(arrayOfUrl);
+    } else {
+      setVideoFilePath("");
+    }
+  };
 
   return (
     <div className={styles.playlistsAndSongs}>
@@ -29,7 +43,10 @@ export default function Home() {
           {/* <Nav /> */}
         </div>
         <div id="songPlayer" className={styles.songPlayer}>
-          Play clips here...
+          <label>
+            <input type="checkbox" checked={checked} onChange={autoPlay} />
+            {"  "} Play entire playlist
+          </label>
           <ReactPlayer
             url={videoFilePath}
             width="55vh"

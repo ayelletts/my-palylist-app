@@ -98,7 +98,9 @@ export default function Song(props) {
                 className={styles.icon}
                 onClick={() => playSong()}
               />
-              <div className={styles.tooltipContent}>Play song</div>
+              <div className={styles.tooltipContent}>
+                {songIsPlaying ? "Stop playing" : "Play song"}
+              </div>
             </div>
             <div className={styles.tooltip}>
               <img
