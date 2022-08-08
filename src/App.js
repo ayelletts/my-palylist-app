@@ -19,7 +19,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   const popup = useState("");
-  const currentSong = useState([]);
+  const currentSong = useState(null);
   const selectedPlaylist = useState(null);
   const [videoFilePath, setVideoFilePath] = useState(null);
 
@@ -55,7 +55,7 @@ function App() {
     <div>
       {" "}
       {loading ? (
-        "Loading..."
+        <span className="loading"> Loading...</span>
       ) : (
         <UserContext.Provider value={[user, setUser]}>
           <VideoPathContext.Provider value={[videoFilePath, setVideoFilePath]}>

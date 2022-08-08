@@ -19,7 +19,7 @@ export default function PlayList(props) {
   const [isClassSelected, setIsClassSelected] = useState(false);
 
   useEffect(() => {
-    if (selectedPlaylist && props && currentSong == "") {
+    if (selectedPlaylist && props && currentSong == null) {
       if (selectedPlaylist._id === props._id) {
         setIsClassSelected(true);
       } else {
@@ -29,7 +29,7 @@ export default function PlayList(props) {
   }, [selectedPlaylist]);
 
   const selectList = async (e) => {
-    if (currentSong != "") {
+    if (currentSong != null) {
       // come from add song to play list
       const config = {
         method: "post",
@@ -47,10 +47,10 @@ export default function PlayList(props) {
         setUser(res.data);
         setPopup("");
       });
-      setCurrentSong("");
+      setCurrentSong(null);
       setSelectedPlaylist(null);
-    } // come from home page
-    else {
+    } else {
+      // come from home page
       setSelectedPlaylist(props);
     }
   };

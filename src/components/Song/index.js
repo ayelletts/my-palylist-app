@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import VideoPathContext from "../../Contexts/VideoPathContext";
 import PopupContext from "../../Contexts/PopupContext";
 import styles from "./style.module.css";
@@ -17,6 +17,7 @@ export default function Song(props) {
   const [currentSong, setCurrentSong] = useContext(SongContext);
   const [popup, setPopup] = useContext(PopupContext);
   const [songIsPlaying, setSongIsPlaying] = useState(false);
+  const [showStop, setShowStop] = useState(false);
   const addToPlayList = require("../../assets/images/addToPlaylist.png");
   const removeFromPlayList = require("../../assets/images/delete.png");
   const playButton = require("../../assets/images/playButton.png");
@@ -24,6 +25,20 @@ export default function Song(props) {
   const [selectedPlaylist, setSelectedPlaylist] = useContext(
     SelectedPlaylistContext
   );
+
+  useEffect(() => {
+    if (videoFilePath) {
+      if (typeof videoFilePath != "string")
+        if (currentSong && currentSong.songId === props.songId)
+          setShowStop(true);
+        else setShowStop(false);
+      else if (songIsPlaying) setShowStop(true);
+      else setShowStop(false);
+    } else {
+      setShowStop(false);
+    }
+  }, [videoFilePath]);
+
   const playSong = () => {
     setSongIsPlaying(!songIsPlaying);
     if (songIsPlaying) setVideoFilePath("");
@@ -37,10 +52,8 @@ export default function Song(props) {
       imgUrl: props.imgUrl,
       title: props.title,
     });
-    //if (!user.playlists || user.playlists.length === 0) {
 
     setPopup(<PlayLists showNewButton={true} />);
-    //}
   };
 
   const removeSongFromPlaylist = async (e) => {
@@ -94,7 +107,7 @@ export default function Song(props) {
           <>
             <div className={styles.tooltip}>
               <img
-                src={songIsPlaying ? stopButton : playButton}
+                src={showStop ? stopButton : playButton}
                 className={styles.icon}
                 onClick={() => playSong()}
               />

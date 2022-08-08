@@ -6,9 +6,11 @@ import userIcon from "../../assets/images/user.png";
 import searchIcon from "../../assets/images/search.png";
 import exitIcon from "../../assets/images/exit.png";
 import { useNavigate } from "react-router-dom";
+import VideoPathContext from "../../Contexts/VideoPathContext";
 
 export default function Header(props) {
   const user = useContext(UserContext);
+  const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
   const navigate = useNavigate();
 
   return (
@@ -24,7 +26,10 @@ export default function Header(props) {
           <img
             src={searchIcon}
             className={styles.icon}
-            onClick={() => navigate("/search")}
+            onClick={() => {
+              setVideoFilePath("");
+              navigate("/search");
+            }}
           />
           <div className={styles.tooltipContent}>Search for new music</div>
         </div>

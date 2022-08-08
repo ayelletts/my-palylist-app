@@ -60,3 +60,14 @@ label {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(14, 180, 152); 
 }
+
+.loading{
+  font-size: 36px;
+  color: aliceblue;
+}
+
+.error{
+  font-size: 36px;
+  color: rgba(243, 57, 57, 0.63);
+  align-self: center;
+}
