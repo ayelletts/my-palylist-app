@@ -19,6 +19,10 @@
     background-color: white;
     padding: 10px;
     border-radius: 10px;
+    height: 60vh;
+    width: 30vw;
+    overflow: auto;
+    overflow-x: hidden;
   }
 
 ul{
@@ -40,3 +44,4 @@ li{
 
 .centered{
 align-items: center;}
+

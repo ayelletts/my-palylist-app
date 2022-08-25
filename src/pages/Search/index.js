@@ -5,11 +5,17 @@ import VideoPathContext from "../../Contexts/VideoPathContext";
 import styles from "./style.module.css";
 import "../../style/style.css";
 import SearchInput from "../../components/SearchInput";
+import MessageContext from "../../Contexts/MessageContext";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../Contexts/UserContext";
 
 export default function Search() {
   const [searchText, setSearchText] = useState("");
   const [resultClips, setResultClips] = useState([]);
   const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
+  const [message, setMessage] = useContext(MessageContext);
+  const [user, setUser] = useContext(UserContext);
+  const navigate = useNavigate();
   let clips = [];
 
   useEffect(() => {
@@ -40,8 +46,19 @@ export default function Search() {
           });
         }
         setResultClips(clips);
+        setMessage("");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (!(err.response.status >= 400 && err.response.status < 499)) {
+          setMessage("Error occured, try again later");
+        } else {
+          setMessage(`Session ended or user not found
+             try signin again`);
+          console.log(err.response.data);
+          setUser("");
+          navigate("/login");
+        }
+      });
   }, [searchText]);
 
   return (
@@ -56,10 +73,11 @@ export default function Search() {
           Play clips here...
           <ReactPlayer
             url={videoFilePath}
-            width="500px"
-            height="350px"
+            width="80vh"
+            height="50vh"
             controls={true}
             float="right"
+            playing={videoFilePath === "" ? false : true}
           />
         </div>
       </div>

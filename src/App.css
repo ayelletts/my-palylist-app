@@ -69,5 +69,5 @@ label {
 .error{
   font-size: 36px;
   color: rgba(243, 57, 57, 0.63);
-  align-self: center;
+  margin-left: 70px;
 }

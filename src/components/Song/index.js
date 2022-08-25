@@ -2,21 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import VideoPathContext from "../../Contexts/VideoPathContext";
 import PopupContext from "../../Contexts/PopupContext";
 import styles from "./style.module.css";
-import PlayLists from "../../pages/PlayLists";
+import PlayLists from "../PlayLists";
 import UserContext from "../../Contexts/UserContext";
 import SongContext from "../../Contexts/SongContext";
 import "../../style/style.css";
 import SelectedPlaylistContext from "../../Contexts/SelectedPlaylistContext";
 import axios from "axios";
-// const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
+import { useNavigate } from "react-router-dom";
+import MessageContext from "../../Contexts/MessageContext";
+const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+// const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
 
 export default function Song(props) {
   const [videoFilePath, setVideoFilePath] = useContext(VideoPathContext);
   const [user, setUser] = useContext(UserContext);
   const [currentSong, setCurrentSong] = useContext(SongContext);
   const [popup, setPopup] = useContext(PopupContext);
-  const [songIsPlaying, setSongIsPlaying] = useState(false);
+  // const [songIsPlaying, setSongIsPlaying] = useState(false);
   const [showStop, setShowStop] = useState(false);
   const addToPlayList = require("../../assets/images/addToPlaylist.png");
   const removeFromPlayList = require("../../assets/images/delete.png");
@@ -25,24 +27,64 @@ export default function Song(props) {
   const [selectedPlaylist, setSelectedPlaylist] = useContext(
     SelectedPlaylistContext
   );
+  const navigate = useNavigate();
+  const [message, setMessage] = useContext(MessageContext);
 
   useEffect(() => {
-    if (videoFilePath) {
-      if (typeof videoFilePath != "string")
-        if (currentSong && currentSong.songId === props.songId)
-          setShowStop(true);
-        else setShowStop(false);
-      else if (songIsPlaying) setShowStop(true);
-      else setShowStop(false);
+    if (currentSong && currentSong.songId === props.songId) {
+      setShowStop(true);
     } else {
       setShowStop(false);
     }
-  }, [videoFilePath]);
+  }, [currentSong]);
 
-  const playSong = () => {
-    setSongIsPlaying(!songIsPlaying);
-    if (songIsPlaying) setVideoFilePath("");
-    else setVideoFilePath(props.videoUrl);
+  const playSong = async (e) => {
+    e.preventDefault();
+    // setSongIsPlaying(!songIsPlaying);
+    if (showStop) {
+      setVideoFilePath("");
+      setCurrentSong(null);
+    } else {
+      setVideoFilePath(props.videoUrl);
+      setCurrentSong({
+        songId: props.songId,
+        videoUrl: props.videoUrl,
+        imgUrl: props.imgUrl,
+        title: props.title,
+      });
+      //update song mark
+      if (props.delete) {
+        const config = {
+          method: "post",
+          url: `${baseUrl}/playlist/updateSongMark/`,
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          data: {
+            userId: selectedPlaylist.userId,
+            playlistId: selectedPlaylist._id,
+            songId: props._id,
+          },
+        };
+        await axios(config)
+          .then((res) => {
+            setMessage("");
+            setUser(res.data.user);
+            setSelectedPlaylist(res.data.selectedPlaylist[0]);
+          })
+          .catch((err) => {
+            if (!(err.response.status >= 400 && err.response.status < 499)) {
+              setMessage("Error occured, try again later");
+            } else {
+              setMessage(`Session ended or user not found
+             try signin again`);
+              console.log(err.response.data);
+              setUser("");
+              navigate("/login");
+            }
+          });
+      }
+    }
   };
 
   const addSongToPlaylist = () => {
@@ -53,7 +95,7 @@ export default function Song(props) {
       title: props.title,
     });
 
-    setPopup(<PlayLists showNewButton={true} />);
+    setPopup(<PlayLists showNewButton={true} source="search" />);
   };
 
   const removeSongFromPlaylist = async (e) => {
@@ -71,10 +113,21 @@ export default function Song(props) {
     };
     await axios(config)
       .then((res) => {
+        setMessage("");
         setUser(res.data.user);
         setSelectedPlaylist(res.data.selectedPlaylist[0]);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        if (!(err.response.status >= 400 && err.response.status < 499)) {
+          setMessage("Error occured, try again later");
+        } else {
+          setMessage(`Session ended or user not found
+             try signin again`);
+          console.log(err.response.data);
+          setUser("");
+          navigate("/login");
+        }
+      });
   };
 
   return (
@@ -87,32 +140,34 @@ export default function Song(props) {
           <>
             <div className={styles.tooltip}>
               <img
-                src={songIsPlaying ? stopButton : playButton}
+                src={showStop ? stopButton : playButton}
                 className={styles.icon}
-                onClick={() => playSong()}
+                onClick={(e) => playSong(e)}
               />
-              <div className={styles.tooltipContent}>Play song</div>
+              <div className={styles.tooltipContent}>
+                {showStop ? "Stop playing" : "Play song"}
+              </div>
             </div>
             <div className={styles.tooltip}>
               <img
                 src={addToPlayList}
                 className={styles.icon}
                 onClick={addSongToPlaylist}
-                alt="Add to Playlist"
               />
               <div className={styles.tooltipContent}>Add to playlist</div>
             </div>
           </>
         ) : (
           <>
+            <div>Song Mark: {props.songMark}</div>
             <div className={styles.tooltip}>
               <img
                 src={showStop ? stopButton : playButton}
                 className={styles.icon}
-                onClick={() => playSong()}
+                onClick={(e) => playSong(e)}
               />
               <div className={styles.tooltipContent}>
-                {songIsPlaying ? "Stop playing" : "Play song"}
+                {showStop ? "Stop playing" : "Play song"}
               </div>
             </div>
             <div className={styles.tooltip}>
@@ -120,14 +175,12 @@ export default function Song(props) {
                 src={removeFromPlayList}
                 className={styles.icon}
                 onClick={removeSongFromPlaylist}
-                alt="Add to Playlist"
               />
               <div className={styles.tooltipContent}>Remove from playlist</div>
             </div>
           </>
         )}
       </div>
-      {/* </div> */}
     </div>
   );
 }

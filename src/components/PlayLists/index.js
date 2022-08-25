@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import PopupContext from "../../Contexts/PopupContext";
 import UserContext from "../../Contexts/UserContext";
-import PlayList from "../../components/PlayList";
+import PlayList from "../PlayList";
 import NewPlaylist from "../NewPlayList";
 import "../../style/style.css";
 import styles from "./style.module.css";
@@ -26,7 +26,7 @@ export default function PlayLists(props) {
         <ul>
           {user.playlists.map((playlist) => (
             <li>
-              <PlayList key={playlist.id} {...playlist} />
+              <PlayList key={playlist.id} {...playlist} source={props.source} />
             </li>
           ))}
         </ul>

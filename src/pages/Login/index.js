@@ -2,15 +2,17 @@ import { useContext, useRef, useState } from "react";
 import UserContext from "../../Contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-//const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
+import MessageContext from "../../Contexts/MessageContext";
+const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+// const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
+
 export default function Login() {
   const [user, setUser] = useContext(UserContext);
   const emailRef = useRef("");
   const passwordRef = useRef("");
-  const [showMessage, setShowMessage] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
-  let navigate = useNavigate();
+  const [message, setMessage] = useContext(MessageContext);
+
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -33,16 +35,21 @@ export default function Login() {
         password: passwordRef.current.value,
       })
       .then((res) => {
+        setMessage("");
         localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("user", JSON.stringify(res.data.user));
-        setShowMessage(false);
         setUser(res.data.user);
         navigate("/myList");
-        //navigate("/search");
       })
       .catch((err) => {
-        setErrMsg(err.response.data);
-        setShowMessage(true);
+        if (!(err.response.status >= 400 && err.response.status < 499)) {
+          setMessage("Error occured, try again later");
+        } else {
+          setMessage(`Session ended or user not found
+             try signin again`);
+          console.log(err.response.data);
+          setUser("");
+          navigate("/login");
+        }
       });
   };
 
@@ -74,7 +81,6 @@ export default function Login() {
               Submit
             </button>
           </div>
-          {showMessage && <div className="text-danger">{errMsg}</div>}
           <p className="forgot-password text-right mt-2">
             New user?{" "}
             <a href="#" onClick={signup}>

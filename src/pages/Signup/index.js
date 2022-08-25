@@ -1,7 +1,8 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../../Contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import MessageContext from "../../Contexts/MessageContext";
 // const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 const baseUrl = process.env.BASE_URL || "https://my-spotify-ah.herokuapp.com";
 
@@ -9,8 +10,7 @@ export default function Signup() {
   const [user, setUser] = useContext(UserContext);
   const [formData, setFormData] = useState({});
   let navigate = useNavigate();
-  const [showMessage, setShowMessage] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
+  const [message, setMessage] = useContext(MessageContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -34,13 +34,21 @@ export default function Signup() {
     axios
       .post(`${baseUrl}/users/signup/`, formData)
       .then((res) => {
+        setMessage("");
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
         navigate("/myList");
       })
       .catch((err) => {
-        setShowMessage(true);
-        setErrMsg(err.response.data);
+        if (!(err.response.status >= 400 && err.response.status < 499)) {
+          setMessage("Error occured, try again later");
+        } else {
+          setMessage(`Session ended or user not found
+             try signin again`);
+          console.log(err.response.data);
+          setUser("");
+          navigate("/login");
+        }
       });
   };
 
@@ -139,7 +147,6 @@ export default function Signup() {
               Submit
             </button>
           </div>
-          {showMessage && <div className="text-danger">{errMsg}</div>}
         </div>
       </form>
     </div>
